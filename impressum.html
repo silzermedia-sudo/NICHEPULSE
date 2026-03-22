@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impressum – NichePulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a08; --surface: #111110; --border: #2a2a26;
+    --text: #e8e6df; --muted: #6b6a62; --accent: #c8f04a;
+    --font-mono: 'DM Mono', monospace; --font-sans: 'Geist', sans-serif;
+  }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 16px; line-height: 1.7; }
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 48px; border-bottom: 1px solid var(--border);
+    background: rgba(10,10,8,0.9);
+  }
+  .logo { font-family: var(--font-mono); font-size: 14px; font-weight: 500; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; }
+  .back { font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 0.06em; }
+  .back:hover { color: var(--text); }
+  main { max-width: 680px; margin: 0 auto; padding: 80px 48px; }
+  h1 { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 48px; }
+  h2 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; margin-top: 40px; margin-bottom: 12px; }
+  p { font-size: 15px; font-weight: 300; color: var(--text); margin-bottom: 8px; }
+  a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: var(--text); }
+  footer { border-top: 1px solid var(--border); padding: 28px 48px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  footer span, footer a { font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">NICHEPULSE</a>
+  <a href="index.html" class="back">← Zurück</a>
+</nav>
+<main>
+  <h1>Impressum</h1>
+
+  <h2>Angaben gemäß § 5 TMG</h2>
+  <!-- ANPASSEN: Dein vollständiger Name -->
+  <p>Andrea Silzer</p>
+  <!-- ANPASSEN: Deine Straße und Hausnummer -->
+  <p>Kinzigstraße 10</p>
+  <!-- ANPASSEN: Deine PLZ und Stadt -->
+  <p>77756 Hausach</p>
+  <p>Deutschland</p>
+
+  <h2>Kontakt</h2>
+  <!-- ANPASSEN: Deine öffentliche E-Mail-Adresse (beide Stellen!) -->
+  <p>E-Mail: <a href="mailto:silzer.media@gmail.com">silzer.media@gmail.com</a></p>
+
+  <h2>Unternehmensbezeichnung</h2>
+  <!-- ANPASSEN: Name deines Unternehmens oder einfach dein Name -->
+  <p>Andrea Silzer (Einzelunternehmen)</p>
+
+  <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+  <!-- ANPASSEN: Dein Name und Adresse (gleich wie oben) -->
+  <p>Andrea Silzer</p>
+  <p>Kinzigstraße 10</p>
+  <p>77756 Hausach</p>
+
+  <h2>Haftungsausschluss</h2>
+  <p>Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden. Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.</p>
+
+  <h2>Hinweis</h2>
+  <!-- ANPASSEN: Diesen Text kannst du anpassen sobald NichePulse live geht -->
+  <p>NichePulse befindet sich derzeit in der Entwicklungsphase (Beta). Es handelt sich um ein nicht-kommerzielles Validierungsprojekt. Es werden derzeit keine Zahlungen verarbeitet.</p>
+</main>
+<footer>
+  <span class="logo">NICHEPULSE</span>
+  <div style="display:flex;gap:24px;">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+  </div>
+</footer>
+</body>
+</html>
