@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NichePulse – Was Leute gerade wirklich wollen</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a08;
+    --surface: #111110;
+    --surface2: #1a1a17;
+    --border: #2a2a26;
+    --text: #e8e6df;
+    --muted: #6b6a62;
+    --accent: #c8f04a;
+    --accent2: #f04a4a;
+    --accent3: #4ab8f0;
+    --font-serif: 'Instrument Serif', Georgia, serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-sans: 'Geist', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,8,0.9);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  .nav-cta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 8px 20px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    background: transparent;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+  .hero {
+    min-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 48px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(200,240,74,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  .hero-headline {
+    font-family: var(--font-serif);
+    font-size: clamp(56px, 9vw, 130px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    width: 100%;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+
+  .hero-headline em { font-style: italic; color: var(--accent); }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 40px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.35s;
+  }
+
+  .hero-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 480px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.5s;
+  }
+
+  .input-row {
+    display: flex;
+    gap: 0;
+  }
+
+  .hero-form input[type="email"] {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-right: none;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 14px 20px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .hero-form input[type="email"]::placeholder { color: var(--muted); }
+  .hero-form input[type="email"]:focus { border-color: var(--accent); }
+
+  .hero-form button {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 14px 28px;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+  .hero-form button:hover { opacity: 0.85; }
+
+  .consent-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .consent-row input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .consent-row label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+    cursor: pointer;
+  }
+
+  .consent-row label a {
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .consent-row label a:hover { color: var(--text); }
+
+  .hero-note {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.65s;
+  }
+
+  .ticker-wrap {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .ticker-track {
+    display: flex;
+    animation: ticker 30s linear infinite;
+    width: max-content;
+  }
+  .ticker-item {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 0 32px;
+    color: var(--muted);
+    white-space: nowrap;
+    border-right: 1px solid var(--border);
+  }
+  .ticker-item span { color: var(--accent); margin-right: 8px; }
+
+  .section { padding: 64px 48px; width: 100%; }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    width: 100%;
+  }
+
+  .problem-card {
+    background: var(--surface);
+    padding: 36px;
+    border: 1px solid var(--border);
+  }
+
+  .problem-card .num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .problem-card h3 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .problem-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .demo-section {
+    padding: 64px 48px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .demo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+  }
+
+  .demo-title {
+    font-family: var(--font-serif);
+    font-size: 40px;
+    line-height: 1.1;
+    max-width: 420px;
+  }
+  .demo-title em { font-style: italic; color: var(--accent); }
+
+  .niche-tabs { display: flex; gap: 2px; margin-bottom: 24px; }
+
+  .tab {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    transition: all 0.15s;
+  }
+  .tab.active, .tab:hover { background: var(--bg); color: var(--text); border-color: var(--text); }
+  .tab.active { border-color: var(--accent); color: var(--accent); }
+
+  .pain-list { display: none; }
+  .pain-list.active { display: flex; flex-direction: column; gap: 2px; }
+
+  .pain-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 20px 28px;
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: 24px;
+    transition: border-color 0.15s;
+  }
+  .pain-item:hover { border-color: var(--muted); }
+
+  .pain-text { font-size: 15px; font-weight: 300; }
+
+  .pain-volume {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .pain-bar-wrap { width: 80px; height: 3px; background: var(--border); position: relative; }
+  .pain-bar { position: absolute; left: 0; top: 0; height: 100%; background: var(--accent); }
+
+  .trend-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+  .trend-up { background: rgba(200,240,74,0.12); color: var(--accent); }
+  .trend-hot { background: rgba(240,74,74,0.12); color: var(--accent2); }
+  .trend-new { background: rgba(74,184,240,0.12); color: var(--accent3); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+    width: 100%;
+  }
+
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 40px 36px;
+  }
+
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .step h3 {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .step p { font-size: 14px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+
+  .cta-section {
+    padding: 80px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    bottom: -300px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(200,240,74,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-headline {
+    font-family: var(--font-serif);
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .cta-headline em { font-style: italic; color: var(--accent); }
+
+  .cta-sub { font-size: 16px; color: var(--muted); margin-bottom: 48px; font-weight: 300; }
+
+  .cta-form-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+
+  .cta-input-row { display: flex; width: 100%; }
+
+  .cta-form-wrap input[type="email"] {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-right: none;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 14px 20px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .cta-form-wrap input[type="email"]::placeholder { color: var(--muted); }
+  .cta-form-wrap input[type="email"]:focus { border-color: var(--accent); }
+
+  .cta-form-wrap button {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 14px 28px;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+  .cta-form-wrap button:hover { opacity: 0.85; }
+
+  .cta-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .cta-consent input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .cta-consent label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+    cursor: pointer;
+  }
+
+  .cta-consent label a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+  .cta-consent label a:hover { color: var(--text); }
+
+  .success-msg {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--accent);
+    padding: 16px 24px;
+    border: 1px solid rgba(200,240,74,0.3);
+    background: rgba(200,240,74,0.05);
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer span, footer a {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  footer a:hover { color: var(--text); }
+
+  .footer-links { display: flex; gap: 24px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .hero { padding: 48px 24px 40px; }
+    .hero-headline { font-size: clamp(42px, 10vw, 64px); }
+    .hero-sub { font-size: 15px; }
+    .input-row { flex-direction: column; }
+    .input-row input[type="email"] { border-right: 1px solid var(--border); border-bottom: none; }
+    .section { padding: 60px 24px; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .demo-section { padding: 60px 24px; }
+    .demo-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .pain-item { grid-template-columns: 1fr; gap: 8px; }
+    .niche-tabs { flex-wrap: wrap; }
+    .cta-section { padding: 80px 24px; }
+    .cta-input-row { flex-direction: column; }
+    .cta-form-wrap input[type="email"] { border-right: 1px solid var(--border); border-bottom: none; }
+    footer { flex-direction: column; align-items: flex-start; padding: 24px; }
+  }
+
+  /* Scroll reveal */
+  .problem-card {
+    opacity: 0;
+    transform: scale(0.92) translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .problem-card.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  .problem-card:nth-child(1) { transition-delay: 0s; }
+  .problem-card:nth-child(2) { transition-delay: 0.1s; }
+  .problem-card:nth-child(3) { transition-delay: 0.2s; }
+  .problem-card:nth-child(4) { transition-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">NICHEPULSE</div>
+  <a href="#cta" class="nav-cta">EARLY ACCESS</a>
+</nav>
+
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="ticker-item"><span>↑ 340%</span>SaaS Tools · "kein guter Onboarding-Flow"</div>
+    <div class="ticker-item"><span>🔥 HOT</span>Creator Tools · "kein einfaches Link-in-Bio mit Analytics"</div>
+    <div class="ticker-item"><span>↑ 180%</span>Fitness Apps · "Training-Logging zu kompliziert"</div>
+    <div class="ticker-item"><span>NEW</span>E-Commerce · "keine Abandoned-Cart-Lösung für kleine Shops"</div>
+    <div class="ticker-item"><span>↑ 220%</span>SaaS Tools · "zu teuer für Solo-Founder"</div>
+    <div class="ticker-item"><span>🔥 HOT</span>Creator Tools · "keine einfache Membership-Plattform"</div>
+    <div class="ticker-item"><span>↑ 90%</span>Health · "Schlaf-Tracking ohne Abo"</div>
+    <div class="ticker-item"><span>NEW</span>SaaS · "kein bezahlbares CRM für Freelancer"</div>
+    <div class="ticker-item"><span>↑ 340%</span>SaaS Tools · "kein guter Onboarding-Flow"</div>
+    <div class="ticker-item"><span>🔥 HOT</span>Creator Tools · "kein einfaches Link-in-Bio mit Analytics"</div>
+    <div class="ticker-item"><span>↑ 180%</span>Fitness Apps · "Training-Logging zu kompliziert"</div>
+    <div class="ticker-item"><span>NEW</span>E-Commerce · "keine Abandoned-Cart-Lösung für kleine Shops"</div>
+    <div class="ticker-item"><span>↑ 220%</span>SaaS Tools · "zu teuer für Solo-Founder"</div>
+    <div class="ticker-item"><span>🔥 HOT</span>Creator Tools · "keine einfache Membership-Plattform"</div>
+    <div class="ticker-item"><span>↑ 90%</span>Health · "Schlaf-Tracking ohne Abo"</div>
+    <div class="ticker-item"><span>NEW</span>SaaS · "kein bezahlbares CRM für Freelancer"</div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="eyebrow">Markt-Intelligenz für Indie Hacker</div>
+  <h1 class="hero-headline">
+    Sieh in <em>Echtzeit,</em><br>was Leute<br>wirklich wollen.
+  </h1>
+  <p class="hero-sub">
+    NichePulse aggregiert tausende Diskussionen aus Reddit, Twitter und Foren – und zeigt dir nach Nische sortiert, welche Probleme gerade ungelöst sind.
+  </p>
+  <div class="hero-form">
+    <div class="input-row">
+      <input type="email" id="hero-email" placeholder="deine@email.de">
+      <button onclick="signup('hero')">EARLY ACCESS →</button>
+    </div>
+    <div class="consent-row" style="text-align:left;">
+      <input type="checkbox" id="hero-consent">
+      <label for="hero-consent">
+        Ich stimme zu, dass meine E-Mail-Adresse für den Early-Access-Newsletter von NichePulse genutzt wird. Keine Weitergabe an Dritte. <a href="datenschutz.html">Datenschutzerklärung</a>
+      </label>
+    </div>
+  </div>
+  <p class="hero-note" style="margin-top:8px;">Kostenlos · Keine Kreditkarte · Du wirst als Erster informiert</p>
+</section>
+
+<section class="section">
+  <div class="section-label">Das Problem</div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="num">01</div>
+      <h3>Du baust Dinge, die niemand braucht.</h3>
+      <p>Wochenlang coden, dann der Launch – und Stille. Weil du nie wirklich gewusst hast, ob da echter Demand ist.</p>
+    </div>
+    <div class="problem-card">
+      <div class="num">02</div>
+      <h3>Reddit durchforsten kostet Stunden.</h3>
+      <p>Du weißt, dass die Signale irgendwo da sind. Aber sie manuell zu finden ist zeitraubend und zufällig.</p>
+    </div>
+    <div class="problem-card">
+      <div class="num">03</div>
+      <h3>Bestehende Tools sind zu generisch.</h3>
+      <p>Google Trends zeigt Interesse, nicht Schmerz. Existing Pain-Point-Tools denken nur in Tech-Nischen.</p>
+    </div>
+    <div class="problem-card">
+      <div class="num">04</div>
+      <h3>Bis du es siehst, ist es zu spät.</h3>
+      <p>Trends entstehen in Wochen. Wer zu spät anfängt zu bauen, kämpft gegen gut etablierte Konkurrenz.</p>
+    </div>
+  </div>
+</section>
+
+<section class="demo-section" id="demo">
+  <div class="demo-header">
+    <h2 class="demo-title">Was Leute <em>gerade</em> frustriert.</h2>
+    <span style="font-family: var(--font-mono); font-size: 11px; color: var(--muted);">LIVE-DEMO (simuliert)</span>
+  </div>
+
+  <div class="niche-tabs">
+    <button class="tab active" onclick="showNiche('saas', this)">SaaS Tools</button>
+    <button class="tab" onclick="showNiche('creator', this)">Creator Tools</button>
+    <button class="tab" onclick="showNiche('fitness', this)">Fitness Apps</button>
+  </div>
+
+  <div class="pain-list active" id="niche-saas">
+    <div class="pain-item">
+      <span class="pain-text">"Onboarding ist bei den meisten SaaS-Tools einfach schrecklich"</span>
+      <span class="pain-volume">1.240 Erwähnungen</span>
+      <div><div class="pain-bar-wrap"><div class="pain-bar" style="width:92%"></div></div></div>
+      <span class="trend-badge trend-hot">🔥 HOT</span>
+    </div>
+    <div class="pain-item">
+      <span class="pain-text">"Warum kosten einfache CRM-Tools für Freelancer immer noch 50€/Monat?"</span>
+      <span class="pain-volume">870 Erwähnungen</span>
+      <div><div class="pain-bar-wrap"><div class="pain-bar" style="width:72%"></div></div></div>
+      <span class="trend-badge trend-up">↑ 220%</span>
+    </div>
+    <div class="pain-item">
+      <span class="pain-text">"Ich will simple Invoice-Software ohne 20 Features die ich nie brauche"</span>
+      <span class="pain-volume">640 Erwähnungen</span>
+      <div><div class="pain-bar-wrap"><div class="pain-bar" style="width:56%"></div></div></div>
+      <span class="trend-badge trend-new">NEW</span>
+    </div>
+    <div class="pain-item">
+      <span class="pain-text">"Kein Tool verbindet Notion + Kalender vernünftig"</span>
+      <span class="pain-volume">510 Erwähnungen</span>
+      <div><div class="pain-bar-wrap"><div class="pain-bar" style="width:44%"></div></div></div>
+      <span class="trend-badge trend-up">↑ 140%</span>
+    </div>
+  </div>
+
+  <div class="pain-list" id="niche-creator">
+    <div class="pain-item">
+      <span class="pain-text">"Ich will eine einfache Membership-Seite ohne Kajabi-Preise"</span>
+      <span class="pain-volume">2.100 Erwähnungen</span>
+      <div><div class="pain-bar-wrap"><div class="pain-bar" style="width:95%"></div></div></div>
+      <span class="trend-badge trend-hot">🔥 HOT</span>
+    </div>
+    <div class="pain-item">
+      <span class="pain-text">"Link-in-Bio mit echten Analytics – warum gibt's das nicht gratis?"</span>
+      <span class="pain-volume">980 Erwähnungen</span>
+      <div><div class="pain-bar-wrap"><div class="pain-bar" style="width:78%"></div></div></div>
+      <span class="trend-badge trend-up">↑ 340%</span>
+    </div>
+    <div class="pain-item">
+      <span class="pain-text">"Newsletter-Tools zählen keine Klicks auf externe Links"</span>
+      <span class="pain-volume">420 Erwähnungen</span>
+      <div><div class="pain-bar-wrap"><div class="pain-bar" style="width:38%"></div></div></div>
+      <span class="trend-badge trend-new">NEW</span>
+    </div>
+  </div>
+
+  <div class="pain-list" id="niche-fitness">
+    <div class="pain-item">
+      <span class="pain-text">"Training-Logs die einfach funktionieren – ohne 40 Klicks pro Satz"</span>
+      <span class="pain-volume">1.560 Erwähnungen</span>
+      <div><div class="pain-bar-wrap"><div class="pain-bar" style="width:88%"></div></div></div>
+      <span class="trend-badge trend-hot">🔥 HOT</span>
+    </div>
+    <div class="pain-item">
+      <span class="pain-text">"Schlaf-Tracking-App ohne Abo-Modell"</span>
+      <span class="pain-volume">730 Erwähnungen</span>
+      <div><div class="pain-bar-wrap"><div class="pain-bar" style="width:60%"></div></div></div>
+      <span class="trend-badge trend-up">↑ 90%</span>
+    </div>
+    <div class="pain-item">
+      <span class="pain-text">"Ich will Makros tracken ohne MyFitnessPal bezahlen zu müssen"</span>
+      <span class="pain-volume">480 Erwähnungen</span>
+      <div><div class="pain-bar-wrap"><div class="pain-bar" style="width:42%"></div></div></div>
+      <span class="trend-badge trend-new">NEW</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-label">Wie es funktioniert</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01 — SCAN</div>
+      <h3>Wir hören zu.</h3>
+      <p>NichePulse scannt täglich tausende Posts auf Reddit, Twitter, Indie Hackers und Product Hunt nach echten Beschwerden und ungelösten Problemen.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02 — SORT</div>
+      <h3>Nach Nische, nicht nach Lautstärke.</h3>
+      <p>Kein generischer Trend-Feed. Du wählst deine Nischen und siehst nur was relevant ist – sortiert nach Volumen, Trend-Richtung und Lösungsdefizit.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03 — BUILD</div>
+      <h3>Du baust was gebraucht wird.</h3>
+      <p>Direkt aus dem Dashboard siehst du die echten Zitate, die echten Threads, die echten Menschen. Kein Raten. Nur validierter Demand.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="cta">
+  <h2 class="cta-headline">Sei der Erste,<br>der es <em>sieht.</em></h2>
+  <p class="cta-sub">Early Access ist kostenlos. Wir sagen dir Bescheid wenn NichePulse live geht.</p>
+
+  <div class="cta-form-wrap" id="cta-form-wrap">
+    <div class="cta-input-row">
+      <input type="email" id="cta-email" placeholder="deine@email.de">
+      <button onclick="signup('cta')">ANMELDEN →</button>
+    </div>
+    <div class="cta-consent">
+      <input type="checkbox" id="cta-consent">
+      <label for="cta-consent">
+        Ich stimme zu, dass meine E-Mail-Adresse für den Early-Access-Newsletter von NichePulse genutzt wird. Keine Weitergabe an Dritte. <a href="datenschutz.html">Datenschutzerklärung</a>
+      </label>
+    </div>
+  </div>
+  <div class="success-msg" id="success-msg">
+    ✓ Du stehst auf der Liste. Wir melden uns bald.
+  </div>
+</section>
+
+<footer>
+  <div class="logo">NICHEPULSE</div>
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+  </div>
+</footer>
+
+<script>
+  function showNiche(niche, btn) {
+    document.querySelectorAll('.pain-list').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('niche-' + niche).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  async function signup(source) {
+    const emailId = source === 'hero' ? 'hero-email' : 'cta-email';
+    const consentId = source === 'hero' ? 'hero-consent' : 'cta-consent';
+    const email = document.getElementById(emailId).value;
+    const consent = document.getElementById(consentId).checked;
+
+    if (!email || !email.includes('@')) {
+      document.getElementById(emailId).style.borderColor = 'var(--accent2)';
+      setTimeout(() => document.getElementById(emailId).style.borderColor = '', 1500);
+      return;
+    }
+
+    if (!consent) {
+      document.getElementById(consentId).style.outline = '2px solid var(--accent2)';
+      setTimeout(() => document.getElementById(consentId).style.outline = '', 1500);
+      alert(window._t ? window._t.consent_alert : 'Bitte stimme der Datenschutzerklärung zu.');
+      return;
+    }
+
+    try {
+      const res = await fetch('https://formspree.io/f/xeerbkqk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email: email, source: source })
+      });
+
+      if (res.ok) {
+        if (source === 'hero') {
+          const msgHero = window._t ? window._t.success_hero : '✓ Du stehst auf der Liste. Wir melden uns.'; document.querySelector('.hero-form').innerHTML = '<p style="font-family:var(--font-mono);font-size:13px;color:var(--accent);padding:16px;border:1px solid rgba(200,240,74,0.3);background:rgba(200,240,74,0.05);">' + msgHero + '</p>';
+        } else {
+          document.getElementById('cta-form-wrap').style.display = 'none';
+          const msgCta = window._t ? window._t.success : '✓ Du stehst auf der Liste. Wir melden uns bald.'; document.getElementById('success-msg').textContent = msgCta; document.getElementById('success-msg').style.display = 'block';
+        }
+      } else {
+        alert('Etwas hat nicht geklappt. Bitte versuche es nochmal.');
+      }
+    } catch(e) {
+      alert('Verbindungsfehler. Bitte versuche es nochmal.');
+    }
+  }
+
+  document.querySelector('.nav-cta').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('cta').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Scroll reveal for problem cards
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.problem-card').forEach(card => {
+    observer.observe(card);
+  });
+
+  // ── i18n ──────────────────────────────────────────────
+  const translations = {
+    de: {
+      eyebrow: "Markt-Intelligenz für Indie Hacker",
+      headline: 'Sieh in <em>Echtzeit,</em><br>was Leute<br>wirklich wollen.',
+      sub: "NichePulse aggregiert tausende Diskussionen aus Reddit, Twitter und Foren – und zeigt dir nach Nische sortiert, welche Probleme gerade ungelöst sind.",
+      cta_btn: "EARLY ACCESS →",
+      consent: 'Ich stimme zu, dass meine E-Mail-Adresse für den Early-Access-Newsletter von NichePulse genutzt wird. Keine Weitergabe an Dritte. <a href="datenschutz.html">Datenschutzerklärung</a>',
+      note: "Kostenlos · Keine Kreditkarte · Du wirst als Erster informiert",
+      nav_cta: "EARLY ACCESS",
+      problem_label: "Das Problem",
+      problems: [
+        { num: "01", title: "Du baust Dinge, die niemand braucht.", text: "Wochenlang coden, dann der Launch – und Stille. Weil du nie wirklich gewusst hast, ob da echter Demand ist." },
+        { num: "02", title: "Reddit durchforsten kostet Stunden.", text: "Du weißt, dass die Signale irgendwo da sind. Aber sie manuell zu finden ist zeitraubend und zufällig." },
+        { num: "03", title: "Bestehende Tools sind zu generisch.", text: "Google Trends zeigt Interesse, nicht Schmerz. Existing Pain-Point-Tools denken nur in Tech-Nischen." },
+        { num: "04", title: "Bis du es siehst, ist es zu spät.", text: "Trends entstehen in Wochen. Wer zu spät anfängt zu bauen, kämpft gegen gut etablierte Konkurrenz." }
+      ],
+      demo_label: "LIVE-DEMO (simuliert)",
+      demo_title: 'Was Leute <em>gerade</em> frustriert.',
+      tabs: ["SaaS Tools", "Creator Tools", "Fitness Apps"],
+      how_label: "Wie es funktioniert",
+      steps: [
+        { num: "01 — SCAN", title: "Wir hören zu.", text: "NichePulse scannt täglich tausende Posts auf Reddit, Twitter, Indie Hackers und Product Hunt nach echten Beschwerden und ungelösten Problemen." },
+        { num: "02 — SORT", title: "Nach Nische, nicht nach Lautstärke.", text: "Kein generischer Trend-Feed. Du wählst deine Nischen und siehst nur was relevant ist – sortiert nach Volumen, Trend-Richtung und Lösungsdefizit." },
+        { num: "03 — BUILD", title: "Du baust was gebraucht wird.", text: "Direkt aus dem Dashboard siehst du die echten Zitate, die echten Threads, die echten Menschen. Kein Raten. Nur validierter Demand." }
+      ],
+      cta_headline: 'Sei der Erste,<br>der es <em>sieht.</em>',
+      cta_sub: "Early Access ist kostenlos. Wir sagen dir Bescheid wenn NichePulse live geht.",
+      cta_btn2: "ANMELDEN →",
+      success: "✓ Du stehst auf der Liste. Wir melden uns bald.",
+      success_hero: "✓ Du stehst auf der Liste. Wir melden uns.",
+      placeholder: "deine@email.de",
+      consent_alert: "Bitte stimme der Datenschutzerklärung zu."
+    },
+    en: {
+      eyebrow: "Market Intelligence for Indie Hackers",
+      headline: 'See in <em>real time</em><br>what people<br>actually want.',
+      sub: "NichePulse aggregates thousands of discussions from Reddit, Twitter and forums – showing you by niche which problems are currently unsolved.",
+      cta_btn: "EARLY ACCESS →",
+      consent: 'I agree that my email address will be used for the NichePulse early access newsletter. No sharing with third parties. <a href="datenschutz.html">Privacy Policy</a>',
+      note: "Free · No credit card · You'll be first to know",
+      nav_cta: "EARLY ACCESS",
+      problem_label: "The Problem",
+      problems: [
+        { num: "01", title: "You build things nobody wants.", text: "Weeks of coding, then launch day – and silence. Because you never really knew if there was real demand." },
+        { num: "02", title: "Scrolling Reddit takes hours.", text: "You know the signals are out there. But finding them manually is time-consuming and random." },
+        { num: "03", title: "Existing tools are too generic.", text: "Google Trends shows interest, not pain. Existing pain-point tools only think in tech niches." },
+        { num: "04", title: "By the time you see it, it's too late.", text: "Trends emerge in weeks. Who starts building too late fights well-established competition." }
+      ],
+      demo_label: "LIVE DEMO (simulated)",
+      demo_title: 'What people are <em>right now</em> frustrated about.',
+      tabs: ["SaaS Tools", "Creator Tools", "Fitness Apps"],
+      how_label: "How it works",
+      steps: [
+        { num: "01 — SCAN", title: "We listen.", text: "NichePulse scans thousands of posts daily on Reddit, Twitter, Indie Hackers and Product Hunt for real complaints and unsolved problems." },
+        { num: "02 — SORT", title: "By niche, not by volume.", text: "No generic trend feed. You choose your niches and only see what's relevant – sorted by volume, trend direction and solution gap." },
+        { num: "03 — BUILD", title: "You build what's needed.", text: "Directly from the dashboard you see real quotes, real threads, real people. No guessing. Only validated demand." }
+      ],
+      cta_headline: 'Be the first<br>to <em>see it.</em>',
+      cta_sub: "Early access is free. We'll let you know when NichePulse goes live.",
+      cta_btn2: "SIGN UP →",
+      success: "✓ You're on the list. We'll be in touch.",
+      success_hero: "✓ You're on the list. We'll be in touch.",
+      placeholder: "your@email.com",
+      consent_alert: "Please agree to the privacy policy."
+    },
+
+    pt: {
+      eyebrow: "Inteligência de Mercado para Indie Hackers",
+      headline: 'Veja em <em>tempo real</em><br>o que as pessoas<br>realmente querem.',
+      sub: "NichePulse agrega milhares de discussões do Reddit, Twitter e fóruns – mostrando por nicho quais problemas ainda estão sem solução.",
+      cta_btn: "ACESSO ANTECIPADO →",
+      consent: 'Concordo que meu e-mail seja usado para a newsletter de acesso antecipado do NichePulse. Sem compartilhamento com terceiros. <a href="datenschutz.html">Política de Privacidade</a>',
+      note: "Gratuito · Sem cartão de crédito · Você será o primeiro a saber",
+      nav_cta: "ACESSO ANTECIPADO",
+      problem_label: "O Problema",
+      problems: [
+        { num: "01", title: "Você constrói coisas que ninguém quer.", text: "Semanas codando, depois o lançamento – e silêncio. Porque você nunca soube se havia demanda real." },
+        { num: "02", title: "Vasculhar o Reddit leva horas.", text: "Você sabe que os sinais estão lá. Mas encontrá-los manualmente é demorado e aleatório." },
+        { num: "03", title: "As ferramentas existentes são genéricas demais.", text: "Google Trends mostra interesse, não dor. As ferramentas atuais só pensam em nichos de tecnologia." },
+        { num: "04", title: "Quando você vê, já é tarde demais.", text: "Tendências surgem em semanas. Quem começa tarde enfrenta concorrência bem estabelecida." }
+      ],
+      demo_label: "DEMO AO VIVO (simulado)",
+      demo_title: 'O que as pessoas estão <em>agora</em> frustradas.',
+      tabs: ["Ferramentas SaaS", "Criadores de Conteúdo", "Apps de Fitness"],
+      how_label: "Como funciona",
+      steps: [
+        { num: "01 — SCAN", title: "Nós ouvimos.", text: "NichePulse escaneia milhares de posts diariamente no Reddit, Twitter, Indie Hackers e Product Hunt em busca de reclamações reais e problemas não resolvidos." },
+        { num: "02 — SORT", title: "Por nicho, não por volume.", text: "Sem feed genérico de tendências. Você escolhe seus nichos e vê apenas o que é relevante – ordenado por volume, direção de tendência e lacuna de solução." },
+        { num: "03 — BUILD", title: "Você constrói o que é necessário.", text: "Diretamente do dashboard você vê citações reais, threads reais, pessoas reais. Sem adivinhar. Só demanda validada." }
+      ],
+      cta_headline: 'Seja o primeiro<br>a <em>ver.</em>',
+      cta_sub: "O acesso antecipado é gratuito. Avisaremos quando o NichePulse entrar no ar.",
+      cta_btn2: "CADASTRAR →",
+      success: "✓ Você está na lista. Entraremos em contato.",
+      success_hero: "✓ Você está na lista. Entraremos em contato.",
+      placeholder: "seu@email.com",
+      consent_alert: "Por favor, concorde com a política de privacidade."
+    }
+  };
+
+  function applyLanguage(lang) {
+    const t = translations[lang] || translations.de;
+    // nav
+    document.querySelector('.nav-cta').textContent = t.nav_cta;
+    // hero
+    document.querySelector('.eyebrow').textContent = t.eyebrow;
+    document.querySelector('.hero-headline').innerHTML = t.headline;
+    document.querySelector('.hero-sub').textContent = t.sub;
+    document.querySelector('#hero-email').placeholder = t.placeholder;
+    document.querySelector('.hero-form button').textContent = t.cta_btn;
+    document.querySelector('#hero-consent + label').innerHTML = t.consent;
+    document.querySelector('.hero-note').textContent = t.note;
+    // problem section
+    document.querySelector('.section-label').childNodes[0].textContent = t.problem_label + ' ';
+    const cards = document.querySelectorAll('.problem-card');
+    t.problems.forEach((p, i) => {
+      if (cards[i]) {
+        cards[i].querySelector('.num').textContent = p.num;
+        cards[i].querySelector('h3').textContent = p.title;
+        cards[i].querySelector('p').textContent = p.text;
+      }
+    });
+    // demo
+    document.querySelector('.demo-title').innerHTML = t.demo_title;
+    document.querySelectorAll('.niche-tabs .tab').forEach((tab, i) => {
+      if (t.tabs[i]) tab.textContent = t.tabs[i];
+    });
+    // steps
+    const stepEls = document.querySelectorAll('.step');
+    t.steps.forEach((s, i) => {
+      if (stepEls[i]) {
+        stepEls[i].querySelector('.step-num').textContent = s.num;
+        stepEls[i].querySelector('h3').textContent = s.title;
+        stepEls[i].querySelector('p').textContent = s.text;
+      }
+    });
+    // how label
+    const labels = document.querySelectorAll('.section-label');
+    if (labels[1]) labels[1].childNodes[0].textContent = t.how_label + ' ';
+    // cta
+    document.querySelector('.cta-headline').innerHTML = t.cta_headline;
+    document.querySelector('.cta-sub').textContent = t.cta_sub;
+    document.querySelector('.cta-form-wrap button').textContent = t.cta_btn2;
+    document.querySelector('#cta-email').placeholder = t.placeholder;
+    document.querySelector('#cta-consent + label').innerHTML = t.consent;
+    // store for signup alerts
+    window._t = t;
+  }
+
+  // Detect language
+  const userLang = (navigator.language || navigator.userLanguage || 'de').toLowerCase();
+  const lang = userLang.startsWith('de') ? 'de' : userLang.startsWith('pt') ? 'pt' : 'en';
+  applyLanguage(lang);
+  // ── end i18n ──────────────────────────────────────────
+
+</script>
+
+</body>
+</html>
